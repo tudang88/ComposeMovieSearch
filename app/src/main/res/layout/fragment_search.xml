@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- binding layout component with viewModel-->
+        <variable
+            name="viewModel"
+            type="com.composebootcamp.moviesearch.screens.search.SearchFragmentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/movie_search_scene"
+        tools:context=".screens.search.SearchFragment">
+        <!--wrap up panel + editText + Button into one group for animation-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/headArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/panel"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:contentDescription="@string/panel_image_description"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/panel"
+                tools:srcCompat="@drawable/panel" />
+
+            <EditText
+                android:id="@+id/search_box"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:autofillHints=""
+                android:hint="@string/search_hint"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:text="@={viewModel.keyword}"
+                android:textColorHint="#757575"
+                app:layout_constraintEnd_toStartOf="@+id/search_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/panel" />
+
+            <Button
+                android:id="@+id/search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="@string/search_button_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/search_box"
+                app:layout_constraintTop_toBottomOf="@+id/panel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/search_result_text"
+            style="@style/headline_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:text="@{String.format(@string/search_results, viewModel.foundMovieCount != null ? viewModel.foundMovieCount: 0)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/headArea" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_result_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_small"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_result_text"
+            app:listData="@{viewModel.searchResult}" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</layout>

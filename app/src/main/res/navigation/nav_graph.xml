@@ -3,26 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/searchFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.composebootcamp.moviesearch.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
+        android:id="@+id/searchFragment"
+        android:name="com.composebootcamp.moviesearch.screens.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/showMovieDetailsFromSearch"
+            app:destination="@id/detailsFragment"
+            app:popUpTo="@id/searchFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.composebootcamp.moviesearch.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
+        android:id="@+id/favoriteFragment"
+        android:name="com.composebootcamp.moviesearch.screens.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/showMovieDetailFromFavorite"
+            app:destination="@id/detailsFragment"
+            app:popUpTo="@id/favoriteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.composebootcamp.moviesearch.screens.details.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" >
+        <argument
+            android:name="movieEntry"
+            app:argType="com.composebootcamp.moviesearch.database.MovieEntry" />
     </fragment>
 </navigation>

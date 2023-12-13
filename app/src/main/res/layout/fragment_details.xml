@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.composebootcamp.moviesearch.screens.details.DetailsFragmentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screens.details.DetailsFragment">
+
+        <ImageView
+            android:id="@+id/movie_backdrop"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            app:imageUrl="@{viewModel.backdropImageUrl}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/poster_1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2" />
+
+        <ProgressBar
+            android:id="@+id/movie_rating"
+            style="@style/rating_circle"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_tiny"
+            android:progress="@{viewModel.rating}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_backdrop"
+            tools:progress="60" />
+
+        <TextView
+            android:id="@+id/movie_rating_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.format(@string/rating_percent,viewModel.rating)}"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            app:layout_constraintBottom_toBottomOf="@+id/movie_rating"
+            app:layout_constraintEnd_toEndOf="@+id/movie_rating"
+            app:layout_constraintStart_toStartOf="@+id/movie_rating"
+            app:layout_constraintTop_toTopOf="@+id/movie_rating"
+            tools:text="60%" />
+
+        <ToggleButton
+            android:id="@+id/favorite_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="@dimen/margin_small"
+            android:background="@drawable/toggle_button"
+            android:checked="@{viewModel.favorite}"
+            android:onCheckedChanged="@{(_, checked) -> viewModel.onFavoriteChanged(checked)}"
+            android:textOff="@null"
+            android:textOn="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_rating" />
+
+        <TextView
+            android:id="@+id/favorite_button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_tiny"
+            android:text="Favorite"
+            app:layout_constraintBottom_toBottomOf="@+id/favorite_button"
+            app:layout_constraintStart_toEndOf="@+id/favorite_button"
+            app:layout_constraintTop_toTopOf="@+id/favorite_button"
+            tools:text="Favorite" />
+
+        <TextView
+            android:id="@+id/movie_title"
+            style="@style/headline_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_tiny"
+            android:text="@{viewModel.title}"
+            app:layout_constraintStart_toEndOf="@id/movie_rating"
+            app:layout_constraintTop_toBottomOf="@+id/movie_backdrop"
+            tools:text="@string/sample_movie_title" />
+
+        <TextView
+            android:id="@+id/movie_release_date"
+            style="@style/small_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_tiny"
+            android:text="@{viewModel.releaseDate}"
+            app:layout_constraintStart_toEndOf="@+id/movie_rating"
+            app:layout_constraintTop_toBottomOf="@+id/movie_title"
+            tools:text="@string/movie_release_date_sample" />
+
+        <TextView
+            android:id="@+id/movie_genres"
+            style="@style/small_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_tiny"
+            android:text="@{viewModel.genres}"
+            app:layout_constraintStart_toEndOf="@+id/movie_release_date"
+            app:layout_constraintTop_toBottomOf="@+id/movie_title"
+            tools:text="@string/movie_release_date_sample" />
+
+        <TextView
+            android:id="@+id/movie_time"
+            style="@style/small_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_tiny"
+            android:text="@{viewModel.movieTime}"
+            app:layout_constraintStart_toEndOf="@+id/movie_genres"
+            app:layout_constraintTop_toBottomOf="@+id/movie_title"
+            tools:text="@string/movie_release_date_sample" />
+
+        <TextView
+            android:id="@+id/movie_overview"
+            style="@style/overview_text_normal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small"
+            android:text="@{viewModel.overview}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/favorite_button"
+            tools:text="@string/movie_overview_sample" />
+
+        <Button
+            android:id="@+id/close_details_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_normal"
+            android:text="Close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -43,4 +43,22 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_search_fragment">Hello Search fragment</string>
+    <string name="hello_favorite_fragment">Hello Favorite fragment</string>
+    <string name="hello_detail_fragment">Hello Detail fragment</string>
+
+    <string name="menu_search">Search</string>
+    <string name="menu_favorite">Favorite</string>
+    <string name="panel_image_description">Panel Image</string>
+    <string name="search_hint">Search for a movie</string>
+    <string name="search_button_text">Search</string>
+    <string name="search_results">Search Results: %d movies found</string>
+    <string name="the_poster_of_movie">The poster of movie</string>
+    <string name="sample_movie_title">Fight Club</string>
+    <string name="movie_overview_sample">A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground fight clubs forming in every town, until an eccentric gets in the way and ignites an out-</string>
+    <string name="movie_release_date_sample">December 11, 1999</string>
+    <string name="favorite_list_title">Favorite List: %d movies</string>
+    <string name="rating_percent">%d%%</string>
 </resources>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--binding data entry to layout-->
+    <data>
+        <!--listener when favorite change-->
+        <variable
+            name="favoriteChangedListener"
+            type="com.composebootcamp.moviesearch.utils.OnFavoriteChangedListener" />
+        <!--listener when click on item-->
+        <variable
+            name="clickListener"
+            type="com.composebootcamp.moviesearch.utils.OnMovieItemClickListener" />
+
+        <variable
+            name="resultEntry"
+            type="com.composebootcamp.moviesearch.database.MovieEntry" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_tiny"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_tiny"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:onClick="@{() -> clickListener.onClick(resultEntry)}"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/poster"
+                style="@style/poster_list_item"
+                android:layout_margin="@dimen/margin_small"
+                android:scaleType="fitXY"
+                app:imageUrl="@{resultEntry.posterUrl}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@drawable/poster_1" />
+
+            <TextView
+                android:id="@+id/movie_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="@{resultEntry.title}"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/poster"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/sample_movie_title" />
+
+            <TextView
+                android:id="@+id/release_date_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="@{resultEntry.releaseDate}"
+                app:layout_constraintStart_toEndOf="@+id/poster"
+                app:layout_constraintTop_toBottomOf="@+id/movie_title"
+                tools:text="@string/movie_release_date_sample"
+                style="@style/small_text" />
+
+            <ToggleButton
+                android:id="@+id/favorite_state_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/toggle_button"
+                android:checked="@={resultEntry.favoriteFlag}"
+                android:onCheckedChanged="@{(_, checked) -> favoriteChangedListener.onChanged(resultEntry, checked)}"
+                android:textOff="@null"
+                android:textOn="@null"
+                app:layout_constraintBottom_toTopOf="@+id/movie_overview_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/movie_title" />
+
+            <TextView
+                android:id="@+id/movie_overview_text"
+                style="@style/overview_text_normal"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="@{resultEntry.overview}"
+                app:layout_constraintBottom_toBottomOf="@id/poster"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/poster"
+                app:layout_constraintTop_toBottomOf="@+id/release_date_text"
+                tools:text="@string/movie_overview_sample" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</layout>

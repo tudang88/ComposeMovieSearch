@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!--binding viewModel with ui component here-->
+        <variable
+            name="viewModel"
+            type="com.composebootcamp.moviesearch.screens.favorite.FavoriteFragmentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screens.favorite.FavoriteFragment">
+
+        <TextView
+            android:id="@+id/favorite_title"
+            style="@style/headline_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:text="@{String.format(@string/favorite_list_title, viewModel.savedMovieCount != null ? viewModel.savedMovieCount: 0)}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/favorite_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_small"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/favorite_title"
+            app:listData="@{viewModel.allFavoriteData}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

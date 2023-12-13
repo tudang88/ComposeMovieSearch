@@ -45,13 +45,13 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
-        viewBinding = true
         dataBinding = true
         buildConfig = true
     }
 }
 
 dependencies {
+    implementation("androidx.test.espresso:espresso-idling-resource:3.5.1")
     // Dependencies for using Room DB => START
     val roomVersion = "2.6.1"
     implementation("androidx.room:room-runtime:$roomVersion")
@@ -81,6 +81,33 @@ dependencies {
     // Dependencies for Timber log
     implementation("com.jakewharton.timber:timber:5.0.1")
 
+    // Dependency for Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    // Dependency for koin
+    implementation("io.insert-koin:koin-android:3.5.2-RC1")
+
+    // Java Compatibility
+    implementation("io.insert-koin:koin-android-compat:3.5.2-RC1")
+    // Jetpack WorkManager
+    implementation("io.insert-koin:koin-androidx-workmanager:3.5.2-RC1")
+    // Navigation Graph
+    implementation("io.insert-koin:koin-androidx-navigation:3.5.2-RC1")
+
+    val nav_version = "2.7.5"
+    // Java language implementation
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    // Kotlin
+    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    // Feature module Support
+    implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
+    // Testing Navigation
+    androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
+
+    // Jetpack Compose Integration
+    implementation("androidx.navigation:navigation-compose:$nav_version")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
@@ -88,6 +115,10 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
     testImplementation("junit:junit:4.13.2")
+
+    // For Espresso
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
 }
