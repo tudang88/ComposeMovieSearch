@@ -4,6 +4,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("org.jetbrains.kotlin.kapt")
     id("kotlin-parcelize") // add plugin to use Parcelize
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {

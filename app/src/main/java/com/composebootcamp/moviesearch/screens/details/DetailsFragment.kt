@@ -19,7 +19,7 @@ class DetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = DataBindingUtil.inflate<FragmentDetailsBinding>(
             inflater,
             R.layout.fragment_details,
@@ -46,7 +46,6 @@ class DetailsFragment : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.bottom_nav?.visibility = View.GONE
         _viewModel.getMovieDetailsInfo(args.movieEntry)
     }
 }

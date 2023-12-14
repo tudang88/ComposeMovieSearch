@@ -20,7 +20,7 @@ class FavoriteFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = DataBindingUtil.inflate<FragmentFavoriteBinding>(
             inflater,
             R.layout.fragment_favorite,
@@ -34,13 +34,6 @@ class FavoriteFragment : Fragment() {
         return binding.root
     }
 
-    /**
-     * resume bottom bar
-     */
-    override fun onResume() {
-        super.onResume()
-        activity?.bottom_nav?.visibility = View.VISIBLE
-    }
 
     /**
      * click listener when user click movie card
