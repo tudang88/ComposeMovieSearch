@@ -65,7 +65,7 @@ dependencies {
     // Dependencies for using Room DB => START
     val roomVersion = "2.6.1"
     implementation("androidx.room:room-runtime:$roomVersion")
-    annotationProcessor("androidx.room:room-compiler:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
     // To use Kotlin annotation processing tool (kapt)
     ksp("androidx.room:room-compiler:$roomVersion")
     // To use Kotlin Symbol Processing (KSP)

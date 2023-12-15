@@ -1,7 +1,8 @@
 package com.composebootcamp.moviesearch
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule
+//import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.os.Build
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.composebootcamp.moviesearch.database.MovieEntry
 import com.composebootcamp.moviesearch.network.model.GenresInfo
@@ -26,7 +27,7 @@ import org.robolectric.annotation.Config
  */
 @RunWith(AndroidJUnit4::class)
 @ExperimentalCoroutinesApi
-@Config(sdk = [Build.VERSION_CODES.O_MR1])
+@Config(sdk = [Build.VERSION_CODES.O_MR1], manifest = Config.NONE)
 class MainActivityViewModelTest {
 
     /**
