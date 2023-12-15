@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.composebootcamp.moviesearch.R
 import com.composebootcamp.moviesearch.databinding.FragmentDetailsBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailsFragment : Fragment() {
@@ -47,5 +48,17 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _viewModel.getMovieDetailsInfo(args.movieEntry)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val naviBar = activity?.findViewById<BottomNavigationView>(R.id.bottom_nav)
+        naviBar?.visibility = View.GONE
+    }
+
+    override fun onPause() {
+        super.onPause()
+        val naviBar = activity?.findViewById<BottomNavigationView>(R.id.bottom_nav)
+        naviBar?.visibility = View.VISIBLE
     }
 }
