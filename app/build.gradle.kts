@@ -20,6 +20,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        // The following argument makes the Android Test Orchestrator run its
+        // "pm clear" command after each test invocation. This command ensures
+        // that the app's state is completely cleared between tests.
+        testInstrumentationRunnerArguments["clearPackageData"] = "true"
         // the movies db api key
         buildConfigField("String", "TMDB_API_KEY", "${properties["tmdb_api_key"]}")
     }
@@ -49,10 +53,15 @@ android {
         dataBinding = true
         buildConfig = true
     }
+
+    testOptions {
+        execution = "ANDROIDX_TEST_ORCHESTRATOR"
+    }
 }
 
 dependencies {
     implementation("androidx.test.espresso:espresso-idling-resource:3.5.1")
+    implementation("androidx.test.ext:junit-ktx:1.1.5")
     // Dependencies for using Room DB => START
     val roomVersion = "2.6.1"
     implementation("androidx.room:room-runtime:$roomVersion")
@@ -115,9 +124,21 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
+    testImplementation("android.arch.core:core-testing:1.1.1")
+    // Local test dependencies
     testImplementation("junit:junit:4.13.2")
-
+    // Optional -- Robolectric environment
+    testImplementation("androidx.test:core-ktx:1.5.0")
+    // Optional -- Mockito framework
+    testImplementation("org.mockito:mockito-core:5.7.0")
+    // Optional -- mockito-kotlin
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+    // Optional -- Mockk framework
+    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0-RC")
+    testImplementation("org.robolectric:robolectric:4.11.1")
     // For Espresso
+    androidTestImplementation("androidx.arch.core:core-testing:2.2.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation("androidx.test:runner:1.5.2")
