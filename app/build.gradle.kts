@@ -106,23 +106,33 @@ dependencies {
 
     val nav_version = "2.7.5"
     // Java language implementation
+    //noinspection GradleDependency
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    //noinspection GradleDependency
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     // Kotlin
+    //noinspection GradleDependency
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+    //noinspection GradleDependency
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
     // Feature module Support
+    //noinspection GradleDependency
     implementation("androidx.navigation:navigation-dynamic-features-fragment:$nav_version")
     // Testing Navigation
+    //noinspection GradleDependency
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
 
     // Jetpack Compose Integration
+    //noinspection GradleDependency
     implementation("androidx.navigation:navigation-compose:$nav_version")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
+    //noinspection GradleDependency
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    //noinspection GradleDependency
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    //noinspection GradleDependency
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
     testImplementation("android.arch.core:core-testing:1.1.1")
     // Local test dependencies
