@@ -1,6 +1,7 @@
 package com.composebootcamp.moviesearch.screens.details
 
 import android.app.Application
+import android.os.Bundle
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.core.app.ApplicationProvider
@@ -113,8 +114,11 @@ class DetailsFragmentTest : AutoCloseKoinTest() {
     @Test
     fun showDetailInfo_FromFavorite_confirmUiStatus() = runTest {
         // GIVEN - bundle with movie1
-        val arg = DetailsFragmentArgs.Builder(movie1).build()
-        val bundle = arg.toBundle()
+//        val arg = DetailsFragmentArgs.Builder(movie1).build()
+//        val arg = DetailsFragmentArgs.fromBundle(Bundle().putParcelable("movieEntry", movie1))
+
+        val bundle = Bundle()
+        bundle.putParcelable("movieEntry", movie1)
         // WHEN - display fragment
         launchFragmentInContainer<DetailsFragment>(bundle, R.style.AppTheme)
         // THEN - the UI should reflect the data
@@ -162,8 +166,10 @@ class DetailsFragmentTest : AutoCloseKoinTest() {
     fun showDetailInfo_FromSearch_confirmUiStatus() = runTest {
         // GIVEN - bundle with movie1
         movie1.favoriteFlag = false
-        val arg = DetailsFragmentArgs.Builder(movie1).build()
-        val bundle = arg.toBundle()
+//        val arg = DetailsFragmentArgs.Builder(movie1).build()
+//        val bundle = arg.toBundle()
+        val bundle = Bundle()
+        bundle.putParcelable("movieEntry", movie1)
         // WHEN - display fragment
         launchFragmentInContainer<DetailsFragment>(bundle, R.style.AppTheme)
         // THEN - the UI should reflect the data
@@ -211,8 +217,10 @@ class DetailsFragmentTest : AutoCloseKoinTest() {
     fun showDetailInfo_changeFavorite_confirmUiStatus() = runTest {
         // GIVEN - bundle with movie1
         movie1.favoriteFlag = false
-        val arg = DetailsFragmentArgs.Builder(movie1).build()
-        val bundle = arg.toBundle()
+//        val arg = DetailsFragmentArgs.Builder(movie1).build()
+//        val bundle = arg.toBundle()
+        val bundle = Bundle()
+        bundle.putParcelable("movieEntry", movie1)
         // WHEN - display fragment
         launchFragmentInContainer<DetailsFragment>(bundle, R.style.AppTheme)
         // THEN - the UI should reflect the data
