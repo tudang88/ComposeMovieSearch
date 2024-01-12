@@ -8,7 +8,11 @@ import com.composebootcamp.moviesearch.network.TmdbApi
 import com.composebootcamp.moviesearch.network.model.MovieDetailsResponse
 import com.composebootcamp.moviesearch.network.model.PosterSize
 import com.composebootcamp.moviesearch.utils.EspressoIdlingResource
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 /**
@@ -84,7 +88,7 @@ class MoviesRepository(
                     )
                 })
             } catch (e: Exception) {
-                Timber.e("Failure on search movies $")
+                Timber.e("Failure on search movies ${e.localizedMessage}")
             }
 
             // update UI

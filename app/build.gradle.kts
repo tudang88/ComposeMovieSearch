@@ -62,6 +62,8 @@ android {
 dependencies {
     implementation("androidx.test.espresso:espresso-idling-resource:3.5.1")
     implementation("androidx.test.ext:junit-ktx:1.1.5")
+    implementation("androidx.test.espresso:espresso-contrib:3.5.1")
+    debugImplementation("androidx.fragment:fragment-testing:1.6.2")
     // Dependencies for using Room DB => START
     val roomVersion = "2.6.1"
     implementation("androidx.room:room-runtime:$roomVersion")
@@ -96,6 +98,11 @@ dependencies {
 
     // Dependency for koin
     implementation("io.insert-koin:koin-android:3.5.2-RC1")
+    // Koin for Tests
+    testImplementation("io.insert-koin:koin-test-junit4:3.5.2-RC1")
+    androidTestImplementation("io.insert-koin:koin-test-junit4:3.5.2-RC1")
+
+//    androidTestImplementation("org.koin:koin-test:2.0.1") { exclude(group = "org.mockito") }
 
     // Java Compatibility
     implementation("io.insert-koin:koin-android-compat:3.5.2-RC1")
@@ -153,4 +160,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("androidx.test:rules:1.5.0")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0-RC")
+//    androidTestImplementation("com.linkedin.dexmaker:dexmaker-mockito:2.12.1")
+
 }
