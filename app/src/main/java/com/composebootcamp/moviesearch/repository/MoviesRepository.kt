@@ -1,7 +1,5 @@
 package com.composebootcamp.moviesearch.repository
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.map
 import com.composebootcamp.moviesearch.database.FavoriteMovieDatabase
 import com.composebootcamp.moviesearch.database.MovieEntry
 import com.composebootcamp.moviesearch.network.TmdbApi
@@ -9,8 +7,11 @@ import com.composebootcamp.moviesearch.network.model.MovieDetailsResponse
 import com.composebootcamp.moviesearch.network.model.PosterSize
 import com.composebootcamp.moviesearch.utils.EspressoIdlingResource
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -18,6 +19,7 @@ import timber.log.Timber
 /**
  * The Repository will cover the data layer from upper layer (ViewModel and View)
  */
+@OptIn(DelicateCoroutinesApi::class)
 class MoviesRepository(
     private val localDb: FavoriteMovieDatabase,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
@@ -36,7 +38,7 @@ class MoviesRepository(
      * live data for search result
      * the result could be null in case no movie found
      */
-    private val _searchResult = MutableLiveData<List<MovieEntry>>()
+    private val _searchResult = MutableStateFlow<List<MovieEntry>>(emptyList())
     override fun getSearchResult() = _searchResult
 
     /**
@@ -49,7 +51,7 @@ class MoviesRepository(
     override fun getAllFavoriteMovies() = _allFavoriteMovies
     override fun getNumOfDbRecord() = _allFavoriteMovies.map { it.size }
 
-    private val _movieDetails = MutableLiveData<MovieDetailsResponse>()
+    private val _movieDetails = MutableStateFlow<MovieDetailsResponse?>(null)
     override fun getMovieDetails() = _movieDetails
 
     // get the baseImage Url for later use
@@ -93,7 +95,7 @@ class MoviesRepository(
 
             // update UI
             withContext(Dispatchers.Main) {
-                _searchResult.postValue(result)
+                _searchResult.value = result
             }
         }
     }
@@ -146,7 +148,7 @@ class MoviesRepository(
              * update UI
              */
             withContext(Dispatchers.Main) {
-                _movieDetails.postValue(response!!)//TODO: check this ignore null check later
+                _movieDetails.value = response!!//TODO: check this ignore null check later
             }
         }
     }

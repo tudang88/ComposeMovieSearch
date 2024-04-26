@@ -1,7 +1,12 @@
 package com.composebootcamp.moviesearch.screens.search
 
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.composebootcamp.moviesearch.repository.MovieResourceInterface
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -11,18 +16,21 @@ class SearchFragmentViewModel(private val repository: MovieResourceInterface) : 
      */
     var keyword = MutableLiveData<String>()
 
+
     /**
      * live data of search result
      */
-    val searchResult = repository.getSearchResult()
-    val foundMovieCount = searchResult.map { it.size }
+    val searchResult =
+        repository.getSearchResult().stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+    val foundMovieCount =
+        searchResult.map { it.size }.stateIn(viewModelScope, SharingStarted.Eagerly, 0)
 
     /**
      * initialize viewModel
      */
     init {
         Timber.d("init ViewModel Live Data")
-        keyword.value = ""
+
     }
 
     /**

@@ -1,14 +1,16 @@
 package com.composebootcamp.moviesearch
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.composebootcamp.moviesearch.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -23,7 +25,8 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         // find nav controller
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 //        navController.addOnDestinationChangedListener{
 //            _, destination, _ ->
@@ -36,12 +39,23 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.bottomNav, navController)
 
         // observer number of record in database to update favorite badge
-        _viewModel.favoriteCount.observe(this, Observer {
-            it?.let {
-                Timber.d("Database count change to : $it")
-                updateFavoriteBadge(it)
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                _viewModel.favoriteCount.collect {
+                    it.let {
+                        Timber.d("Database count change to : $it")
+                        updateFavoriteBadge(it)
+                    }
+                }
             }
-        })
+        }
+
+//        observe(this, Observer {
+//            it?.let {
+//                Timber.d("Database count change to : $it")
+//                updateFavoriteBadge(it)
+//            }
+//        })
     }
 
     /**

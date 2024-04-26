@@ -1,8 +1,14 @@
 package com.composebootcamp.moviesearch.database
 
 import android.content.Context
-import androidx.lifecycle.LiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Database
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Dao interface for accessing favorite database
@@ -25,7 +31,7 @@ interface FavoriteDbDao {
      * get all current saved movie
      */
     @Query("SELECT * from favorite_table")
-    fun getAllFavoriteMovies(): LiveData<List<MovieEntry>>
+    fun getAllFavoriteMovies(): Flow<List<MovieEntry>>
 
     /**
      * delete one entry

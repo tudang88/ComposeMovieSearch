@@ -1,8 +1,9 @@
 package com.composebootcamp.moviesearch.repository
 
-import androidx.lifecycle.LiveData
 import com.composebootcamp.moviesearch.database.MovieEntry
 import com.composebootcamp.moviesearch.network.model.MovieDetailsResponse
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Interface of repository
@@ -11,21 +12,22 @@ interface MovieResourceInterface {
     /**
      * get search movie result
      */
-    fun getSearchResult(): LiveData<List<MovieEntry>>
+    fun getSearchResult(): Flow<List<MovieEntry>>
+
     /**
      * get all favorite movies from database
      */
-    fun getAllFavoriteMovies(): LiveData<List<MovieEntry>>
+    fun getAllFavoriteMovies(): Flow<List<MovieEntry>>
 
     /**
      * get number of favorite movies record
      */
-    fun getNumOfDbRecord(): LiveData<Int>
+    fun getNumOfDbRecord(): Flow<Int>
 
     /**
      * get details of movie from remote
      */
-    fun getMovieDetails(): LiveData<MovieDetailsResponse>
+    fun getMovieDetails(): StateFlow<MovieDetailsResponse?>
 
     /**
      * check an movie already in database
@@ -41,6 +43,7 @@ interface MovieResourceInterface {
      * update database base on the favorite status
      */
     suspend fun changeMovieStatusOnFavoriteDb(movieEntry: MovieEntry, status: Boolean)
+
     /**
      * get movie details from remote
      */
